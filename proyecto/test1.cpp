@@ -3,6 +3,8 @@
 #include <iostream>
 #include <math.h>
 
+using namespace std;
+
 
 void reshape(int width, int height)
 {
@@ -27,7 +29,8 @@ void split(float *p,int n){
   }
 }
 
-void points(float **&pp,float *p ,  int n, float radio=1.0 ){
+
+void points(float **&pp,float *p ,  int n, float radio= 2.0 ){
   float pi=3.141516;
   pp=new float*[n];
   for(int i=0;i<n;i++){
@@ -39,6 +42,7 @@ void points(float **&pp,float *p ,  int n, float radio=1.0 ){
   }
 
 }
+
 
 void display2()
 {
@@ -54,42 +58,38 @@ void display2()
   }
 
   split(p,n);
-  points(pp,p,n,10);
+  points(pp,p,n,2);
 
   glBegin( GL_LINE_LOOP );
-  for( unsigned int i = 0; i < n; ++i )
+  for( unsigned int i = 0; i < n; i++ )
   {
-    // glVertex2f(pp[i][0],pp[i][1] );
-   glVertex3f(pp[i][0],pp[i][1],0);
+    cout<<":::"<<pp[i][0]<<"-"<<pp[i][1]<<endl;
+    glVertex2f(pp[i][0],pp[i][1]);
+    
+  //  glVertex3f(pp[i][0],pp[i][1],0);
   }
   glEnd();
 }
 
 void display()
 {
-  // glClear(GL_COLOR_BUFFER_BIT);
-  // glColor3f(1,1,1);
-  // glLoadIdentity();
-  // glBegin(GL_LINES);
-  //
-  // display2();
-  //
-  // glEnd();
-  // glFlush();
 
   glClear( GL_COLOR_BUFFER_BIT );
 
-  // glMatrixMode( GL_PROJECTION );
+  glMatrixMode( GL_PROJECTION );
   glLoadIdentity();
-  // double ar = glutGet( GLUT_WINDOW_WIDTH ) / (double)glutGet( GLUT_WINDOW_HEIGHT );
-  // glOrtho( -2 * ar, 2 * ar, -2, 2, -1, 1);
+  double ar = glutGet( GLUT_WINDOW_WIDTH ) / (double)glutGet( GLUT_WINDOW_HEIGHT );
+  glOrtho( -2 * ar, 2 * ar, -2, 2, -1, 1);
 
-  // glMatrixMode( GL_MODELVIEW );
-  glLoadIdentity();
+  glMatrixMode( GL_MODELVIEW );
+  glLoadIdentity(); 
 
   glColor3ub( 255, 0, 0 );
-  glutSwapBuffers();
+
   display2();
+
+  glutSwapBuffers();
+
 }
 
 
