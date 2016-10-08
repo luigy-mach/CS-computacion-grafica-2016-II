@@ -76,8 +76,6 @@ void display2()
   {
     cout<<":::"<<pp[i][0]<<"-"<<pp[i][1]<<endl;
     glVertex2f(pp[i][0],pp[i][1]);
-    
-  //  glVertex3f(pp[i][0],pp[i][1],0);
   }
   glEnd();
 }

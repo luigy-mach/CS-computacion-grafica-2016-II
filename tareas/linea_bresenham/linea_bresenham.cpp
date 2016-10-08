@@ -39,7 +39,6 @@ void bresenham_line(int x1,int y1,int x2,int y2)
    xe=x1;
   }
   glVertex3f(x, y, 0.0);
-  // putpixel(x,y,c);
   for(i=0;x<xe;i++)
   {
    x=x+1;
@@ -59,9 +58,7 @@ void bresenham_line(int x1,int y1,int x2,int y2)
     }
     px=px+2*(dy1-dx1);
    }
-  //  delay(0);
    glVertex3f(x, y, 0.0);
-  //  putpixel(x,y,c);
   }
  }
  else
@@ -79,7 +76,6 @@ void bresenham_line(int x1,int y1,int x2,int y2)
    ye=y1;
   }
   glVertex3f(x, y, 0.0);
-  // putpixel(x,y,c);
   for(i=0;y<ye;i++)
   {
    y=y+1;
@@ -99,9 +95,7 @@ void bresenham_line(int x1,int y1,int x2,int y2)
     }
     py=py+2*(dx1-dy1);
    }
-  //  delay(0);
    glVertex3f(x, y, 0.0);
-  //  putpixel(x,y,c);
   }
  }
 }
@@ -126,11 +120,7 @@ void my_line(int x1, int y1,int x2, int y2){
 void display2()
 {
   glBegin( GL_POINTS );
-  //  my_line(0,0,26,26);
-  //  my_line(0,0,20,50);
-  //  my_line(0,0,-20,-50);
-  bresenham_line(0,0,-20,-50);
-    
+      bresenham_line(0,0,-20,-50);
   glEnd();
 }
 
