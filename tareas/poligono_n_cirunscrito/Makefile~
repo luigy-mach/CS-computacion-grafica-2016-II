@@ -1,0 +1,5 @@
+
+poligono: test1.o
+	g++ -o poligono poligonos_n_circunscritos.cpp -lglut -lGLU -lGL -lm
+
+test1: test1.cpp

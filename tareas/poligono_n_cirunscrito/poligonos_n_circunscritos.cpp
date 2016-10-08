@@ -1,5 +1,16 @@
- #include <GL/glut.h>
+/*********************************************************
+**********************************************************
+**** Universidad Nacional de San Agustín.
+**********************************************************
+**** Dibujo de un poligono regular de N lados circunscrito .
+     a una circunferencia.
+**********************************************************
+**** autor: Luigy Machaca.
+**** curso: Computacion grafica.
+**********************************************************
+*********************************************************/
 
+#include <GL/glut.h>
 #include <iostream>
 #include <math.h>
 
@@ -111,7 +122,7 @@ int main(int argc, char **argv)
   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
   glutInitWindowPosition(0, 0);
   glutInitWindowSize(tam, tam);
-  glutCreateWindow("Hello2 OpenGL");
+  glutCreateWindow("n poligonos_regulares circunscritos");
   init();
   glutDisplayFunc(display);
   glutMainLoop();
