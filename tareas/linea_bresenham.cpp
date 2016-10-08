@@ -5,6 +5,97 @@
 
 using namespace std;
 
+void bresenham_line(int x1,int y1,int x2,int y2)
+{
+ int x,y,dx,dy,dx1,dy1,px,py,xe,ye,i;
+ dx=x2-x1;
+ dy=y2-y1;
+ dx1=fabs(dx);
+ dy1=fabs(dy);
+ px=2*dy1-dx1;
+ py=2*dx1-dy1;
+ if(dy1<=dx1)
+ {
+  if(dx>=0)
+  {
+   x=x1;
+   y=y1;
+   xe=x2;
+  }
+  else
+  {
+   x=x2;
+   y=y2;
+   xe=x1;
+  }
+  glVertex3f(x, y, 0.0);
+  // putpixel(x,y,c);
+  for(i=0;x<xe;i++)
+  {
+   x=x+1;
+   if(px<0)
+   {
+    px=px+2*dy1;
+   }
+   else
+   {
+    if((dx<0 && dy<0) || (dx>0 && dy>0))
+    {
+     y=y+1;
+    }
+    else
+    {
+     y=y-1;
+    }
+    px=px+2*(dy1-dx1);
+   }
+  //  delay(0);
+   glVertex3f(x, y, 0.0);
+  //  putpixel(x,y,c);
+  }
+ }
+ else
+ {
+  if(dy>=0)
+  {
+   x=x1;
+   y=y1;
+   ye=y2;
+  }
+  else
+  {
+   x=x2;
+   y=y2;
+   ye=y1;
+  }
+  glVertex3f(x, y, 0.0);
+  // putpixel(x,y,c);
+  for(i=0;y<ye;i++)
+  {
+   y=y+1;
+   if(py<=0)
+   {
+    py=py+2*dx1;
+   }
+   else
+   {
+    if((dx<0 && dy<0) || (dx>0 && dy>0))
+    {
+     x=x+1;
+    }
+    else
+    {
+     x=x-1;
+    }
+    py=py+2*(dx1-dy1);
+   }
+  //  delay(0);
+   glVertex3f(x, y, 0.0);
+  //  putpixel(x,y,c);
+  }
+ }
+}
+
 
 
 void my_line(int x1, int y1,int x2, int y2){
@@ -25,15 +116,13 @@ void my_line(int x1, int y1,int x2, int y2){
 void display2()
 {
   glBegin( GL_POINTS );
-   my_line(0,0,26,26);
-   my_line(0,0,20,50);
-   my_line(0,0,-20,-50);
+  //  my_line(0,0,26,26);
+  //  my_line(0,0,20,50);
+  //  my_line(0,0,-20,-50);
+  bresenham_line(0,0,-20,-50);
     
   glEnd();
 }
-
-
-
 
 
 
@@ -93,7 +182,7 @@ int main(int argc, char **argv)
   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
   glutInitWindowPosition(0, 0);
   glutInitWindowSize(tam, tam);
-  glutCreateWindow("Hello2 OpenGL");
+  glutCreateWindow("algoritmo bresenham");
   init();
   glutDisplayFunc(display);
   glutMainLoop();
