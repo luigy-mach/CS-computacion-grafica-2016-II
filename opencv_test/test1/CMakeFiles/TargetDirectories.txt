@@ -1,0 +1,1 @@
+/home/luigy/Desktop/grafica_2016_2/grafica/opencv_test/test1/CMakeFiles/DisplayImage.dir
