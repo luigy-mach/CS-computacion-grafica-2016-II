@@ -207,25 +207,21 @@ void pintar()
     cout<<"2 - celeste"<<endl;
     cout<<"3 - rosado"<<endl;
     cout<<"escoge el color"<<endl;
-    cin>>color;
-             glClear(GL_COLOR_BUFFER_BIT);
-            int tam=(int)puntos.size();
-            glBegin(GL_LINE_LOOP);  
-                 // draw the boundary of the polygon
-            for(int i=0;i<tam;i++)
-            {
-              glVertex2f(puntos[i].x,puntos[i].y);
-            }
-            /*x1=86,y1=383,x2=211,y2=453,x3=309,y3=312,x4=208,y4=222,x5=101,y5=307;
-            glVertex2f(x1,y1);                   // to be filled.
-            glVertex2f(x2,y2);
-            glVertex2f(x3,y3);
-            glVertex2f(x4,y4);
-            glVertex2f(x5,y5);*/
+    cin
+    cout<<"------------------------"<<endl;>>color;
+
+    glClear(GL_COLOR_BUFFER_BIT);
+    int tam=(int)puntos.size();
+    glBegin(GL_LINE_LOOP);  
+       for(int i=0;i<tam;i++)
+       {
+          glVertex2f(puntos[i].x,puntos[i].y);
+       }
     glEnd();
-   scanfill(color);//x1,y1,x2,y2,x3,y3,x4,y4,x5,y5);       // call scanfill to fill the polygon
-   glFlush();   // Usually students fail the lab because they forget glFlush.
+   scanfill(color);//x1,y1,x2,y2,x3,y3,x4,y4,x5,y5);      
+   glFlush();   
 }
+
 
 void trasladar(void){
   int distX,distY;
@@ -459,6 +455,7 @@ void display(void){
   glFlush();
 }
 
+
 void init(){  
   glClearColor(0.0,0.0,0.0,0.0);
 
@@ -466,6 +463,8 @@ void init(){
   glLoadIdentity();
   gluOrtho2D(0,ANCHO,0,ALTO);
 }
+
+
 
 
 int main(int argc, char **argv){  
