@@ -1,13 +1,3 @@
-/*****************************************************************************
-*   ExploringSfMWithOpenCV
-******************************************************************************
-*   by Roy Shilkrot, 5th Dec 2012
-*   http://www.morethantechnical.com/
-******************************************************************************
-*   Ch4 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
 
 #pragma once
 
@@ -31,8 +21,8 @@ cv::Mat GetFundamentalMat(	const std::vector<cv::KeyPoint>& imgpts1,
 #endif
 						  );
 
-bool FindCameraMatrices(const cv::Mat& K, 
-						const cv::Mat& Kinv, 
+bool FindCameraMatrices(const cv::Mat& K,
+						const cv::Mat& Kinv,
 						const cv::Mat& distcoeff,
 						const std::vector<cv::KeyPoint>& imgpts1,
 						const std::vector<cv::KeyPoint>& imgpts2,

@@ -1,13 +1,3 @@
-/*****************************************************************************
-*   ExploringSfMWithOpenCV
-******************************************************************************
-*   by Roy Shilkrot, 5th Dec 2012
-*   http://www.morethantechnical.com/
-******************************************************************************
-*   Ch4 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
 
 #pragma once
 
@@ -27,7 +17,7 @@ void ShowClouds(const std::vector<cv::Point3d>& pointcloud,
 				const std::vector<cv::Point3d>& pointcloud1 = std::vector<cv::Point3d>(),
 				const std::vector<cv::Vec3b>& pointcloud1_RGB = std::vector<cv::Vec3b>());
 void ShowCloud(const std::vector<cv::Point3d>& pointcloud,
-				const std::vector<cv::Vec3b>& pointcloud_RGB, 
+				const std::vector<cv::Vec3b>& pointcloud_RGB,
 				const std::string& name);
 
 void visualizerShowCamera(const float R[9], const float t[3], float r, float g, float b);

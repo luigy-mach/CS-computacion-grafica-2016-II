@@ -1,10 +1,3 @@
-/*
- *  GPUSURFFeatureMatcher.cpp
- *  ExploringSfMWithOpenCV
- *
- *  Created by Roy Shilkrot on 6/13/12.
- *
- */
 
 #include "GPUSURFFeatureMatcher.h"
 
@@ -24,7 +17,7 @@ using namespace cv;
 using namespace cv::gpu;
 
 //c'tor
-GPUSURFFeatureMatcher::GPUSURFFeatureMatcher(vector<cv::Mat>& imgs_, 
+GPUSURFFeatureMatcher::GPUSURFFeatureMatcher(vector<cv::Mat>& imgs_,
 									   vector<std::vector<cv::KeyPoint> >& imgpts_) :
 	imgpts(imgpts_),use_ratio_test(true)
 {
@@ -32,9 +25,9 @@ GPUSURFFeatureMatcher::GPUSURFFeatureMatcher(vector<cv::Mat>& imgs_,
 	//printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	extractor = new gpu::SURF_GPU();
-	
+
 	std::cout << " -------------------- extract feature points for all images (GPU) -------------------\n";
-	
+
 	imgpts.resize(imgs_.size());
 	descriptors.resize(imgs_.size());
 
@@ -45,10 +38,10 @@ GPUSURFFeatureMatcher::GPUSURFFeatureMatcher(vector<cv::Mat>& imgs_,
 		cout << ".";
 	}
 	)
-}	
+}
 
 void GPUSURFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* matches) {
-	
+
 #ifdef __SFM__DEBUG__
 	Mat img_1; imgs[idx_i].download(img_1);
 	Mat img_2; imgs[idx_j].download(img_2);
@@ -57,23 +50,23 @@ void GPUSURFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* 
 	const vector<KeyPoint>& imgpts2 = imgpts[idx_j];
 	const GpuMat& descriptors_1 = descriptors[idx_i];
 	const GpuMat& descriptors_2 = descriptors[idx_j];
-	
+
 	std::vector< DMatch > good_matches_,very_good_matches_;
 	std::vector<KeyPoint> keypoints_1, keypoints_2;
-	
+
 	//cout << "imgpts1 has " << imgpts1.size() << " points (descriptors " << descriptors_1.rows << ")" << endl;
 	//cout << "imgpts2 has " << imgpts2.size() << " points (descriptors " << descriptors_2.rows << ")" << endl;
-	
+
 	keypoints_1 = imgpts1;
 	keypoints_2 = imgpts2;
-	
+
 	if(descriptors_1.empty()) {
 		CV_Error(0,"descriptors_1 is empty");
 	}
 	if(descriptors_2.empty()) {
 		CV_Error(0,"descriptors_2 is empty");
 	}
-	
+
 	//matching descriptor vectors using Brute Force matcher
 	BruteForceMatcher_GPU<L2<float> > matcher;
 	std::vector< DMatch > matches_;
@@ -86,8 +79,8 @@ void GPUSURFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* 
 		if(use_ratio_test) {
 			vector<vector<DMatch> > knn_matches;
 			GpuMat trainIdx,distance,allDist;
-			CV_PROFILE("match", 
-				matcher.knnMatchSingle(descriptors_1,descriptors_2,trainIdx,distance,allDist,2); 
+			CV_PROFILE("match",
+				matcher.knnMatchSingle(descriptors_1,descriptors_2,trainIdx,distance,allDist,2);
 				matcher.knnMatchDownload(trainIdx,distance,knn_matches);
 			)
 

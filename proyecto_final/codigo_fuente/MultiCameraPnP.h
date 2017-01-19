@@ -1,13 +1,3 @@
-/*****************************************************************************
-*   ExploringSfMWithOpenCV
-******************************************************************************
-*   by Roy Shilkrot, 5th Dec 2012
-*   http://www.morethantechnical.com/
-******************************************************************************
-*   Ch4 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
 
 #pragma once
 
@@ -21,10 +11,10 @@ class MultiCameraPnP : public MultiCameraDistance {
 
 public:
 	MultiCameraPnP(
-		const std::vector<cv::Mat>& imgs_, 
-		const std::vector<std::string>& imgs_names_, 
+		const std::vector<cv::Mat>& imgs_,
+		const std::vector<std::string>& imgs_names_,
 		const std::string& imgs_path_):
-	MultiCameraDistance(imgs_,imgs_names_,imgs_path_) 
+	MultiCameraDistance(imgs_,imgs_names_,imgs_path_)
 	{
 	}
 
@@ -37,8 +27,8 @@ private:
 	void PruneMatchesBasedOnF();
 	void AdjustCurrentBundle();
 	void GetBaseLineTriangulation();
-	void Find2D3DCorrespondences(int working_view, 
-		std::vector<cv::Point3f>& ppcloud, 
+	void Find2D3DCorrespondences(int working_view,
+		std::vector<cv::Point3f>& ppcloud,
 		std::vector<cv::Point2f>& imgPoints);
 	bool FindPoseEstimation(
 		int working_view,
@@ -48,18 +38,18 @@ private:
 		std::vector<cv::Point3f> ppcloud,
 		std::vector<cv::Point2f> imgPoints);
 	bool TriangulatePointsBetweenViews(
-		int working_view, 
+		int working_view,
 		int second_view,
 		std::vector<struct CloudPoint>& new_triangulated,
 		std::vector<int>& add_to_cloud
 		);
-	
+
 	int FindHomographyInliers2Views(int vi, int vj);
 	int m_first_view;
 	int m_second_view; //baseline's second view other to 0
 	std::set<int> done_views;
 	std::set<int> good_views;
-	
+
 /********** Subject / Objserver **********/
 	std::vector < SfMUpdateListener * > listeners;
 public:

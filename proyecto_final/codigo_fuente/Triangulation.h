@@ -1,13 +1,3 @@
-/*****************************************************************************
-*   ExploringSfMWithOpenCV
-******************************************************************************
-*   by Roy Shilkrot, 5th Dec 2012
-*   http://www.morethantechnical.com/
-******************************************************************************
-*   Ch4 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
 
 #pragma once
 
@@ -41,8 +31,8 @@ cv::Mat_<double> IterativeLinearLSTriangulation(cv::Point3d u,	//homogenous imag
 											cv::Matx34d P1			//camera 2 matrix
 											);
 
-double TriangulatePoints(const std::vector<cv::KeyPoint>& pt_set1, 
-					   const std::vector<cv::KeyPoint>& pt_set2, 
+double TriangulatePoints(const std::vector<cv::KeyPoint>& pt_set1,
+					   const std::vector<cv::KeyPoint>& pt_set2,
 					   const cv::Mat& K,
 					   const cv::Mat& Kinv,
 					   const cv::Mat& distcoeff,

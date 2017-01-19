@@ -1,13 +1,3 @@
-/*****************************************************************************
-*   ExploringSfMWithOpenCV
-******************************************************************************
-*   by Roy Shilkrot, 5th Dec 2012
-*   http://www.morethantechnical.com/
-******************************************************************************
-*   Ch4 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
 
 #include "OFFeatureMatcher.h"
 #include <opencv2/video/video.hpp>
@@ -29,7 +19,7 @@ using namespace cv;
 //c'tor
 OFFeatureMatcher::OFFeatureMatcher(
 	bool _use_gpu,
-	std::vector<cv::Mat>& imgs_, 
+	std::vector<cv::Mat>& imgs_,
 	std::vector<std::vector<cv::KeyPoint> >& imgpts_) :
 AbstractFeatureMatcher(_use_gpu),imgpts(imgpts_), imgs(imgs_)
 {
@@ -39,12 +29,12 @@ AbstractFeatureMatcher(_use_gpu),imgpts(imgpts_), imgs(imgs_)
 	ffd.detect(imgs, imgpts);
 }
 
-void OFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* matches) {	
-	vector<Point2f> i_pts; 
+void OFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* matches) {
+	vector<Point2f> i_pts;
 	KeyPointsToPoints(imgpts[idx_i],i_pts);
-	
+
 	vector<Point2f> j_pts(i_pts.size());
-	
+
 	// making sure images are grayscale
 	Mat prevgray,gray;
 	if (imgs[idx_i].channels() == 3) {
@@ -93,7 +83,7 @@ void OFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* match
 
 	std::set<int> found_in_imgpts_j;
 	Mat to_find_flat = Mat(to_find).reshape(1,to_find.size());
-	
+
 	vector<Point2f> j_pts_to_find;
 	KeyPointsToPoints(imgpts[idx_j],j_pts_to_find);
 	Mat j_pts_flat = Mat(j_pts_to_find).reshape(1,j_pts_to_find.size());
@@ -141,7 +131,7 @@ void OFFeatureMatcher::MatchFeatures(int idx_i, int idx_j, vector<DMatch>* match
 			vstatus[i] = 1;
 		}
 		drawArrows(img_matches, i_pts, j_pts, vstatus, verror, Scalar(0,255));
-		stringstream ss; 
+		stringstream ss;
 		ss << matches->size() << " matches";
 //		putText(img_matches,ss.str(),Point(10,20),CV_FONT_HERSHEY_PLAIN,1.0,Scalar(255),2);
 		ss.clear(); ss << "flow_field_" << omp_get_thread_num() << ".png";

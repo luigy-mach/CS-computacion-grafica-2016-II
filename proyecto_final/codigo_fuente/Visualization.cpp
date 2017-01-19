@@ -1,13 +1,3 @@
-/*****************************************************************************
-*   ExploringSfMWithOpenCV
-******************************************************************************
-*   by Roy Shilkrot, 5th Dec 2012
-*   http://www.morethantechnical.com/
-******************************************************************************
-*   Ch4 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
 
 #include "Visualization.h"
 
@@ -35,9 +25,9 @@
 
 using namespace std;
 using namespace Eigen;
- 
+
 void PopulatePCLPointCloud(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& mycloud,
-						   const vector<cv::Point3d>& pointcloud, 
+						   const vector<cv::Point3d>& pointcloud,
 						   const std::vector<cv::Vec3b>& pointcloud_RGB,
 						   bool write_to_file = false
 						   );
@@ -74,7 +64,7 @@ void visualizerShowCamera(const Matrix3f& R, const Vector3f& _t, float r, float 
 		ss << "line";
 		line_name = ss.str();
 	}
-	
+
 	Vector3f t = -R.transpose() * _t;
 
 	Vector3f vright = R.row(0).normalized() * s;
@@ -92,7 +82,7 @@ void visualizerShowCamera(const Matrix3f& R, const Vector3f& _t, float r, float 
 
 	//TODO Mutex acquire
 	pcl::PolygonMesh pm;
-	pm.polygons.resize(6); 
+	pm.polygons.resize(6);
 	for(int i=0;i<6;i++)
 		for(int _v=0;_v<3;_v++)
 			pm.polygons[i].vertices.push_back(ipolygon[i*3 + _v]);
@@ -123,11 +113,11 @@ void viewerOneOff (pcl::visualization::PCLVisualizer& viewer)
 }
 
 void SORFilter() {
-	
+
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
-	
+
 	std::cerr << "Cloud before SOR filtering: " << cloud->width * cloud->height << " data points" << std::endl;
-	
+
 
 	// Create the filtering object
 	pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor;
@@ -135,26 +125,26 @@ void SORFilter() {
 	sor.setMeanK (50);
 	sor.setStddevMulThresh (1.0);
 	sor.filter (*cloud_filtered);
-	
+
 	std::cerr << "Cloud after SOR filtering: " << cloud_filtered->width * cloud_filtered->height << " data points " << std::endl;
-	
+
 	copyPointCloud(*cloud_filtered,*cloud);
 	copyPointCloud(*cloud,*orig_cloud);
-	
+
 //	std::cerr << "PointCloud before VoxelGrid filtering: " << cloud->width * cloud->height << " data points (" << pcl::getFieldsList (*cloud) << ")."<<std::endl;
-//	
+//
 //	cloud_filtered.reset(new pcl::PointCloud<pcl::PointXYZRGB>);
-//	
+//
 //	// Create the filtering object
 //	pcl::VoxelGrid<pcl::PointXYZRGB> vgrid;
 //	vgrid.setInputCloud (cloud);
 //	vgrid.setLeafSize (0.1f, 0.1f, 0.1f);
 //	vgrid.filter (*cloud_filtered);
-//	
-//	std::cerr << "PointCloud after VoxelGrid filtering: " << cloud_filtered->width * cloud_filtered->height << " data points (" << pcl::getFieldsList (*cloud_filtered) << ")."<<std::endl;	
-//	
+//
+//	std::cerr << "PointCloud after VoxelGrid filtering: " << cloud_filtered->width * cloud_filtered->height << " data points (" << pcl::getFieldsList (*cloud_filtered) << ")."<<std::endl;
+//
 //	copyPointCloud(*cloud_filtered,*cloud);
-}	
+}
 
 
 void keyboardEventOccurred (const pcl::visualization::KeyboardEvent& event_,
@@ -165,7 +155,7 @@ void keyboardEventOccurred (const pcl::visualization::KeyboardEvent& event_,
 	if ((event_.getKeySym () == "s" || event_.getKeySym () == "S") && event_.keyDown ())
 	{
 		cout << "s clicked" << endl;
-		
+
 		cloud->clear();
 		copyPointCloud(*orig_cloud,*cloud);
 		if (!sor_applied) {
@@ -181,7 +171,7 @@ void keyboardEventOccurred (const pcl::visualization::KeyboardEvent& event_,
 #ifndef WIN32
 		&& event_.keyDown ()
 #endif
-		) 
+		)
 	{
 		show_cloud_A = true;
 		show_cloud = true;
@@ -190,7 +180,7 @@ void keyboardEventOccurred (const pcl::visualization::KeyboardEvent& event_,
 #ifndef WIN32
 		&& event_.keyDown ()
 #endif
-		) 
+		)
 	{
 		show_cloud_A = false;
 		show_cloud = true;
@@ -201,21 +191,21 @@ void keyboardEventOccurred (const pcl::visualization::KeyboardEvent& event_,
 void RunVisualization(const vector<cv::Point3d>& pointcloud,
 					  const vector<cv::Vec3b>& pointcloud_RGB,
 					  const vector<cv::Point3d>& pointcloud1,
-					  const vector<cv::Vec3b>& pointcloud1_RGB) 
-{	
+					  const vector<cv::Vec3b>& pointcloud1_RGB)
+{
 	ShowClouds(pointcloud,pointcloud_RGB,pointcloud1,pointcloud1_RGB);
-	RunVisualizationOnly();	
+	RunVisualizationOnly();
 }
 
 void ShowClouds(const vector<cv::Point3d>& pointcloud,
 				const vector<cv::Vec3b>& pointcloud_RGB,
 				const vector<cv::Point3d>& pointcloud1,
-				const vector<cv::Vec3b>& pointcloud1_RGB) 
+				const vector<cv::Vec3b>& pointcloud1_RGB)
 {
 	cloud.reset(new pcl::PointCloud<pcl::PointXYZRGB>);
 	cloud1.reset(new pcl::PointCloud<pcl::PointXYZRGB>);
 	orig_cloud.reset(new pcl::PointCloud<pcl::PointXYZRGB>);
-    
+
 	PopulatePCLPointCloud(cloud,pointcloud,pointcloud_RGB);
 	PopulatePCLPointCloud(cloud1,pointcloud1,pointcloud1_RGB);
 	copyPointCloud(*cloud,*orig_cloud);
@@ -224,7 +214,7 @@ void ShowClouds(const vector<cv::Point3d>& pointcloud,
 	show_cloud_A = true;
 }
 
-void ShowCloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr _cloud, const std::string& name) { 
+void ShowCloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr _cloud, const std::string& name) {
 	cloud.reset(new pcl::PointCloud<pcl::PointXYZRGB>);
 	pcl::copyPointCloud(*_cloud,*cloud);
 	cloud_to_show_name = name;
@@ -233,7 +223,7 @@ void ShowCloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr _cloud, const std::string&
 }
 
 void ShowCloud(const vector<cv::Point3d>& pointcloud,
-				const vector<cv::Vec3b>& pointcloud_RGB, 
+				const vector<cv::Vec3b>& pointcloud_RGB,
 				const std::string& name) {
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr newcloud(new pcl::PointCloud<pcl::PointXYZRGB>);
 	PopulatePCLPointCloud(newcloud,pointcloud,pointcloud_RGB);
@@ -242,9 +232,9 @@ void ShowCloud(const vector<cv::Point3d>& pointcloud,
 
 void RunVisualizationOnly() {
 	pcl::visualization::PCLVisualizer viewer("SfMToyLibrary Viewe");
-    	
+
 	viewer.registerKeyboardCallback (keyboardEventOccurred, (void*)&viewer);
-	
+
     while (!viewer.wasStopped ())
     {
 		if (show_cloud) {
@@ -285,12 +275,12 @@ void RunVisualizationOnly() {
 				viewer.removeShape(linesToShow.front().first);
 				viewer.addLine<pcl::PointXYZRGB,pcl::PointXYZRGB>(A,B,linesToShow.front().first);
 				linesToShow.pop_front();
-			} 
+			}
 			linesToShow.clear();
 		}
 		viewer.spinOnce();
     }
-}	
+}
 
 boost::thread* _t = NULL;
 void RunVisualizationThread() {
@@ -302,7 +292,7 @@ void WaitForVisualizationThread() {
 
 
 void PopulatePCLPointCloud(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& mycloud,
-						   const vector<cv::Point3d>& pointcloud, 
+						   const vector<cv::Point3d>& pointcloud,
 						   const std::vector<cv::Vec3b>& pointcloud_RGB,
 						   bool write_to_file
 						   )
@@ -319,47 +309,47 @@ void PopulatePCLPointCloud(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& mycloud
 		}
 
 		// check for erroneous coordinates (NaN, Inf, etc.)
-		if (pointcloud[i].x != pointcloud[i].x || 
-			pointcloud[i].y != pointcloud[i].y || 
-			pointcloud[i].z != pointcloud[i].z || 
+		if (pointcloud[i].x != pointcloud[i].x ||
+			pointcloud[i].y != pointcloud[i].y ||
+			pointcloud[i].z != pointcloud[i].z ||
 #ifndef WIN32
 			isnan(pointcloud[i].x) ||
-			isnan(pointcloud[i].y) || 
+			isnan(pointcloud[i].y) ||
 			isnan(pointcloud[i].z) ||
 #else
 			_isnan(pointcloud[i].x) ||
-			_isnan(pointcloud[i].y) || 
+			_isnan(pointcloud[i].y) ||
 			_isnan(pointcloud[i].z) ||
 #endif
-			//fabsf(pointcloud[i].x) > 10.0 || 
-			//fabsf(pointcloud[i].y) > 10.0 || 
+			//fabsf(pointcloud[i].x) > 10.0 ||
+			//fabsf(pointcloud[i].y) > 10.0 ||
 			//fabsf(pointcloud[i].z) > 10.0
 			false
-			) 
+			)
 		{
 			continue;
 		}
-		
+
 		pcl::PointXYZRGB pclp;
-		
+
 		// 3D coordinates
 		pclp.x = pointcloud[i].x;
 		pclp.y = pointcloud[i].y;
 		pclp.z = pointcloud[i].z;
-		
+
 		// RGB color, needs to be represented as an integer
 		uint32_t rgb = ((uint32_t)rgbv[2] << 16 | (uint32_t)rgbv[1] << 8 | (uint32_t)rgbv[0]);
 		pclp.rgb = *reinterpret_cast<float*>(&rgb);
-		
+
 		mycloud->push_back(pclp);
 	}
-	
+
 	mycloud->width = (uint32_t) mycloud->points.size(); // number of points
 	mycloud->height = 1;								// a list, one row of data
-	
+
 	t = ((double)cv::getTickCount() - t)/cv::getTickFrequency();
 	cout << "Done. (" << t <<"s)"<< endl;
-	
+
 	// write to file
 	if (write_to_file) {
 		//pcl::PLYWriter pw;
