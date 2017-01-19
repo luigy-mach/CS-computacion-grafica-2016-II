@@ -1,0 +1,7 @@
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/CMakeFiles/V3D.dir
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/Apps/CMakeFiles/bundle_common.dir
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/Apps/CMakeFiles/bundle_large.dir
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/Apps/CMakeFiles/bundle_large_lifted_schur.dir
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/Apps/CMakeFiles/bundle_large_triggs.dir
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/Apps/CMakeFiles/bundle_varying.dir
+/home/jan/CVPack/SSBA-master/SSBA-4.0/build/Apps/CMakeFiles/bundle_varying_nonlinlsq.dir

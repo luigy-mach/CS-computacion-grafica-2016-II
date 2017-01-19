@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/bundle_common.dir/bundle_common.cpp.o  -o bundle_common  -L/home/jan/CVPack/SSBA-master/SSBA-4.0 -rdynamic ../libV3D.a -lcolamd -Wl,-rpath,/home/jan/CVPack/SSBA-master/SSBA-4.0 
